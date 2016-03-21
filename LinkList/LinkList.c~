@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct LinkList{
+	int data;
+	struct LinkList *next;
+}node;
+
+
+void Push(node** headRef, int newData){
+	node *newnode=(node *)malloc(sizeof(node));
+	node *temp;
+	if(newnode==NULL){
+		printf("Error allocating memeory !!!\n");		
+		exit(1);
+	}
+	newnode->next=NULL;
+	newnode->data=newData;
+	if(*headRef==NULL){		
+		*headRef=newnode;
+	}else{
+		temp=*headRef;
+		while(temp->next!=NULL){
+			temp=temp->next;
+		}
+		temp->next=newnode;
+	}
+}
+
+int Length(node* head){
+	node *temp=head;
+	int count;
+	count=0;
+	while(temp!=NULL){
+		count=count+1;
+		temp=temp->next;
+	}
+	return count;
+}
+
+node* BuildOneTwoThree(){
+	node *head=NULL;
+	Push(&head,1);
+	Push(&head,2);
+	Push(&head,3);
+	return head;
+}
+
+
+int Count(node* head, int searchFor){
+	int occur=0;
+	node *temp;
+	temp=head;
+	while(temp!=NULL){
+		if(temp->data==searchFor)
+			occur++;
+	}
+	return occur;
+}
+
+
+void CountTest() {
+	node *myList = BuildOneTwoThree();
+	int count = Count(myList, 2);
+	fprintf(stdout,"Count:%d\n",count);
+}	
+
+
+int main(int argc, char *argv[]){
+	CountTest();
+	return 0;
+}

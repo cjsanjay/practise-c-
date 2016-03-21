@@ -1,0 +1,19 @@
+#include<iostream>
+
+using namespace std;
+
+void hanoi(int diskNumber,int source,int middle,int sink){
+	if(diskNumber==0){
+		cout<<"Move Disk "<<diskNumber<<" from peg :"<<source<<" to peg :"<<sink<<endl;
+	}else{
+			hanoi(diskNumber-1,source,sink,middle);
+			cout<<"Move Disk "<<diskNumber<<" from peg :"<<source<<" to peg :"<<sink<<endl;
+			hanoi(diskNumber-1,middle,source,sink);
+	}
+}
+
+
+int main(int argc, char *argv[]){
+	hanoi(3,0,1,2);
+	return 0;
+}

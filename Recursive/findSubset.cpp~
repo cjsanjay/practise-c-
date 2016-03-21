@@ -1,0 +1,41 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+
+vector<vector <int> > printAllSet(vector<int> set,int index){
+	vector<vector<int> 	> allSubset;
+	if(set.size()==index){
+		int a[]={};
+		vector<int> temp(a,a+0);
+		allSubset.push_back(temp);
+	}else{
+		allSubset=printAllSet(set,index+1);
+		vector<vector<int> 	> newSubset;
+		int item=set[index];
+		for(int i=0;i<allSubset.size();i++){
+			vector<int> temp2=allSubset[i];
+			temp2.push_back(item);
+			newSubset.push_back(temp2);
+		}
+		for(int i=0;i<newSubset.size();i++){
+			allSubset.push_back(newSubset[i]);
+		}
+	}
+	return allSubset;
+}
+
+int main(int argc,char *argv[]){
+	int set[]={1,2,3};
+	vector<int> s(set,set+9);
+	vector<vector<int> 	> v;
+	v=printAllSet(s,0);
+	for(int i=0;i<v.size();i++){
+			vector<int> temp2=v[i];
+			for(int j=0;j<temp2.size();j++){
+				cout<<" "<<temp2[j];
+			}
+			cout<<endl;
+	}	
+}

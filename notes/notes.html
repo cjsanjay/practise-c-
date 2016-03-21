@@ -1,0 +1,347 @@
+<html>
+<body>
+<b>Algorithmic Complexity</b>
+<p>The good news is that only a few function classes tend to occur in the course
+of basic algorithm analysis. These suffice to cover almost all the algorithms we will
+discuss in this text, and are listed in order of increasing dominance:</p>
+</br>
+	<b>Constant functions</b></br><p> f (n) = 1 Such functions might measure the cost of
+adding two numbers, printing out “The Star Spangled Banner,” or the growth
+realized by functions such as f (n) = min(n, 100). In the big picture, there is
+no dependence on the parameter n.</p>
+</br>
+	<b>Logarithmic functions</b></br><p>f (n) = log n Logarithmic time-complexity shows up
+in algorithms such as binary search. Such functions grow quite slowly as n
+gets big, but faster than the constant function (which is standing still, after
+all). Logarithms will be discussed in more detail in Section 2.6 (page 46)<p></br>
+	<b> Linear functions</b></br><p>f (n) = n Such functions measure the cost of looking at
+each item once (or twice, or ten times) in an n-element array, say to identify
+the biggest item, the smallest item, or compute the average value.<p></br>
+	<b>Superlinear functions</b></br><p>f (n) = n lg n This important class of functions arises
+in such algorithms as Quicksort and Mergesort. They grow just a little faster
+than linear (see Figure 2.4) just enough to be a different dominance class.<p></br>
+	<b>Quadratic functions</b></br><p> f (n) = n^2 – Such functions measure the cost of looking
+at most or all pairs of items in an n-element universe. This arises in algorithms
+such as insertion sort and selection sort.<p></br>
+	<b>Cubic functions</b> </br><p>f (n) = n^3 Such functions enumerate through all triples of
+items in an n-element universe. These also arise in certain dynamic program-
+ming algorithms developed in Chapter 8.<p></br>
+	<b> Exponential functions</b></br><p>f (n) = c^n for a given constant c > 1 Functions like
+2 n arise when enumerating all subsets of n items. As we have seen, exponential
+algorithms become useless fast but not as fast as. . .<p></br>
+	<b> Factorial functions</b>f (n) = n! – Functions like n! arise when generating all
+permutations or orderings of n items.<p></br>
+
+<b>Adding Functions</b></br>
+<p>The sum of two functions is governed by the dominant one, namely:</br>
+O(f (n)) + O(g(n)) = O(max(f (n), g(n)))</br>
+ohm(f (n)) + ohm(g(n)) = ohm(max(f (n), g(n)))</br>
+theta(f (n)) + theta(g(n)) = theta(max(f (n), g(n)))</p></br>
+
+<b>Algorithm Basic Questions</b></br>
+<p>1.Write a function to perform integer division without using either the / or *
+operators. Find a fast way to do it.</p></br>
+<b>Solution</b>
+<div style="color:GREEN;left:50px;position:relative">
+	<pre><code>
+	int divide(int num, int den){
+		den_a=den;
+		q=0;
+		q_a=1;
+		while(num>=den){
+			if(num &lt; den_a){
+				den_a=den;
+				q_a=1;
+			}
+			num=num-den_a;
+			q=q+q_a;
+			q_a=q_a+q_a;
+			den_a=den_a+den_a;
+		}
+		return q;</br>
+	}
+	</code></pre>
+</div>
+
+<b>Sorting Algorithms</b>
+<div>
+    <b>Merge Sort</b></br>
+    <p>Merge sort main crux is to divide the given array into smaller parts until there is just one element left.</br> After Such division Start merging the smaller arrays in the desired order. The base condition for division can be if low specifies the start index and high specifies the end index then if(low &lt; high) then only divide the array further.</br> Division means calling the msort again i.e recursive calling.</br> merge function does the main job of merging the smaller arrays.</br> While merging we need to use an additional data structure to do merging without loosing any data.</br> C++ provides various predefined library for such purpose ex. Queue, vector, normal arrays. Queues or vector are easiest to use. </br> for queue or vector #include vector or queue.</br> Intialization </br> vector&lt;int&gt; name </br>queue&lt;int&gt; name </br> For queues we use queue.push() for pushing the data while we use queue.front() to get the front element in queue, need to use the queue.pop() to remove the element.</br> for checking the size of queue we can use queue.size().</br> Complexity O(nlogn)</p>
+</div>
+<div>
+    <b>Quick Sort</b>
+    <p>Quick sort involves rearranging a given array in two parts one side all the elements smaller then pivot element and other side all the elemets greater then the pivot element.</br> For implementation purpose what we can do is assume pivot as last element in given array and then assume the correct place for pivot element to be -1 i.e one before the first element.</br> if we encounter all the smaller elements then pivot, keep incrementing the cur_place and making a swap from i to cur_place </br> Now in a situtation when we encounter number greater then pivot, we will not increment cur_place and it will keep on pointing to first encountered high element then pivot.</br> When again we will find a smaller element we will swap it with cur_place and again cur_place will always point to the current elemnt that is to be swapped to keep quick sort constraint consistent.</br> After whole iteration swap the pivot with cur_place position and again call quick sort on left and right side of array.</br> Complexity O(nlogn) best and average case. O(n^2) worst case.</p>
+</div>
+
+<div>
+    <h3><b>Trees</b></h3>
+    <p>Tree is a non linear data structure and by default it wont preserves any sort of order.</br> Height of a node in the tree is the number of nodes from that node to the deppest node in the tree.</br>
+    </p>
+    <h4><b>Binary Tree</b></h4>
+    <p>A tree is called binary tree if each node has zero, one or two child.</p>
+    <p><b>Types of Binary trees</b></p>
+    <ul>
+        <li><p><b>Full Binary tree:</b> Each and every node has exactly two children and all the leaf nodes are at the same level</p></li>
+        <li><p><b>Complete Binary tree:</b> If height of tree is h then complete binary tree is having all nodes at level h or h-1.</br>With that there will not be even a single node missing in between the first and last node if we explore tree in BFS way.</p></li>
+    </ul>
+    <p>Tree Traversal algorithms are: DFS( preorder,inorder,postorder) and BFS</p>
+    <p>DFS</p>
+    <ul>
+        <li><p>Preorder</p>
+            <pre><code>void preorder(Tree T){
+                if(T!=NUll){
+                    display(T);
+                    preorder(T->left);
+                    preorder(T->right);
+                }
+            }</code></pre>
+    
+        </li>
+        <li><p>Inorder</p>
+            <pre><code>void inorder(Tree T){
+                if(T!=NUll){                    
+                    preorder(T->left);
+                    display(T);
+                    preorder(T->right);
+                }
+            }</code></pre>
+    
+        </li>
+        <li><p>Postorder</p>
+            <pre><code>void postorder(Tree T){
+                if(T!=NUll){                    
+                    preorder(T->left);
+                    preorder(T->right);
+                    display(T);
+                }
+            }</code></pre>
+    
+        </li>
+        <li><p>BFS- level order</p>
+            <p>Extremely important in terms of solving all tree related questions where half,full or leaves nodes or deepest node is to befound (essentially it will be the last node to be visited in BFS traversal ) are to be found without recursion just one if condition :)</p>
+            <pre><code>
+            typedef struct tree_struct{
+                int data;
+                struct tree_struct *left,*right;
+            }tree;
+            void levelOrder(tree *root){
+                queue<tree *> q;
+                q.push(root);
+                tree *temp;
+                while(q.size()!=0){
+                    temp=q.pop();
+                    cout<< temp->data;
+                    if(temp->left){
+                        q.push(t->left);                        
+                    }
+                    if(temp->right){
+                        q.push(t->right);
+                    }
+                }
+                
+            }</code></pre>    
+        </li>
+    </ul>
+    <div>
+        <h4>Question: Find max element in binary tree</h4>
+        <p>Use recursion over here to search for each left and right subtree if value found is larger then the value of root, then return that specific value.
+        </p>
+        <p>Code with Recursion</br>
+            <pre><code>
+                int findMax(tree *t){
+                    if(t!=NULL){
+                        int left=findMax(t->left);
+                        int right=findMax(t->right);
+                        return left>right ? (t->data>left?t->data:left):(t->data>right?t->data:right);
+                    }else{
+                        return INT_MIN;
+                    }
+                }
+            </code></pre>
+        </p>
+    </div>
+    <div>
+        <h4>Question: Find height of tree</h4>
+        <p>Use recursion over here as well. Trees max times best way to solve problem is recursion.</p>
+        <p>
+            <pre><code>
+                void findHeight(tree *t){
+                    if(t!=NULL){
+                        int left,right;                        
+                        left=findHeight(t->left);                    
+                        right=findheight(t->right);
+                        return left>right? left+1:right+1;
+                    }else{
+                        return 0;
+                    }
+                }
+            </code></pre>
+        </p>
+    </div>
+    <div>
+        <h4>Question: Check if two binary trees are structurally equivalent</h4>
+        <p>Use recursion smartly</p>
+        <p>
+            <pre><code>
+                int findEquivalent(tree *t1,tree *t2){
+                    if(t1==NULL and t2==NULL){
+                        return 1;
+                    }
+                    if((t1==NULL && t2!=NULL) || (t2==NULL && t1!=NULL) ){
+                        return 0;
+                    }
+                    return (t1->data ==t2->data && findEquivalent(t1->left,t2->left) && findEquivalent(t1->right,t2->right));
+                }
+            </code></pre>
+        </p>
+    </div>
+    <div>
+        <h4>Question: Check if any path suffices the given constraint of sum.</h4>
+        <p>Use recursion smartly</p>
+        <p>
+            <pre><code>
+                int checkIfSumExist(tree *t,rem_sum){
+                    if(t->left==NULL && and t->right=NULL){
+                        if(rem_sum-t->data==0){
+                            return 1;
+                        }
+                    }else{
+                        if(rem_sum<0){
+                            return 0;
+                        }
+                        if(t->left){
+                            if(checkIfSumExist(t->left,rem_sum-t->data)){
+                                print "Found Path";
+                                return 1;
+                            }
+                        }
+                        if(t->right){
+                            if(checkIfSumExist(t->right,rem_sum-t->data)){
+                                print "Found Path";
+                                return 1;
+                            }
+                        }
+                    }
+                }
+            </code></pre>
+        </p>
+    </div>
+    <div>
+        <h4>Question: Check if any path suffices the given constraint of sum.</h4>
+        <p>Use recursion smartly</p>
+        <p>
+            <pre><code>
+                int checkIfSumExist(tree *t,rem_sum){
+                    if(t->left==NULL && and t->right=NULL){
+                        if(rem_sum-t->data==0){
+                            return 1;
+                        }
+                    }else{
+                        if(rem_sum<0){
+                            return 0;
+                        }
+                        if(t->left){
+                            if(checkIfSumExist(t->left,rem_sum-t->data)){
+                                print "Found Path";
+                                return 1;
+                            }
+                        }
+                        if(t->right){
+                            if(checkIfSumExist(t->right,rem_sum-t->data)){
+                                print "Found Path";
+                                return 1;
+                            }
+                        }
+                    }
+                }
+            </code></pre>
+        </p>
+    </div>
+    <div>
+        <h4>Question: Find least common ancestor for given two nodes   .</h4>
+        <p>Recurse and pass both nodes. If any of the node is found then return the node. </br>After reply from both the nodes compare if both node are valid return the parent node or else return the one which came as valid.</p>
+        <p>
+            <pre><code>
+                tree *t findAncestor(tree *root, tree *a,tree *b){
+                    if(root==NULL){
+                        return root;
+                    }
+                    if(root==a || root ==b){
+                        return root
+                    }
+                    tree *left=(root->left,a,b);
+                    tree *right=(root->right,a,b);
+                    if(left && right){
+                        return root;
+                    }else{
+                        return left? left:right;
+                    }
+                }
+            </code></pre>
+        </p>
+    </div>
+    <div>
+            <h4>Question: Find tree using inorder and preorder.</h4>    
+            <p>
+                <pre><code>
+                    def constructTree(preorder,postorder,tree):                    
+                            --take first element from preorder
+                            --split inorder in two parts and make the root as parent node of those arrays.
+                            --rootnode=preorder(element)
+                            --rootnode->left=inorder(rootnode left)
+                            --rootbode->right=inorder(rootnode->right)
+                            --constructTree(preorder,postorder,rootnode->left)
+                            --constructTree(preorder,postorder,rootnode->right)
+                            --recursively call construct tree on both parts
+                        return tree root node
+                </code></pre>
+            </p>
+    </div>
+    <div>
+            <h4>Question: Print All the ancestors for a node in a tree</h4>    
+            <p>
+                <pre><code>
+                    tree *t printAncestors(tree *root,tree *a){
+                        if(root==NULL){
+                            return root;                            
+                        }
+                        if(root==a){
+                            return root;
+                        }
+                        tree *left=printAncestors(root->left,a);
+                        tree *right=printAncestors(root->right,b);
+                        if(left || right){
+                            print root->data;
+                            return root;
+                        }else{
+                            return root;
+                        }
+                    }
+                </code></pre>
+            </p>
+    </div>
+</div>
+
+
+
+
+<div><p><b>Graphs</b></p></br>
+<p>Graph G=(V,E) is a set of vertices V, and contains a set of edges E of ordered or unordered pairs of vertices from V.</br> <b>Types of Graphs are</b></br>
+<ul>
+<li>Directed and undirected Graphs</li>
+<li>Weighted and Unweighted Graphs</li>
+<li>Simple and Non-simple- Graphs containing two or more edges amongst any two vertices is non-simple</li>
+<li>Sparse and Dense graph</li>
+<li>Cyclic and acyclic graph</li>
+</ul>
+<b>Ways to Store Graphs</b>
+<ul>
+    <li>Adjacency Matrix</br>
+Graph G can be represented using nxn matrix M, where element M[i,j]=1 if (i,j) is an edge of G, and 0 if it isn't.</br> This method is generally inefficient when it comes to sparse graphs as too much extra storage is being used.
+    </li>
+    <li>Adjacency List</br> It uses pointers to keep a track of all the vertices which are adjacent to a given vertice. </br>Adjacency list behaves badly when it comes to searching for existense of an given edge in graph.</br> We have to go through all the edges to verify the existence of an edge.</li>
+</ul>
+</p>
+</div>
+</body>
+<html>
